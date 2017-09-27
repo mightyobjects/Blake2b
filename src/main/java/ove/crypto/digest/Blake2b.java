@@ -500,7 +500,7 @@ public interface Blake2b {
 					/* try compressing direct from input ? */
 					while ( len > Spec.block_bytes ) {
 						this.state.t[0] += Spec.block_bytes;
-						this.state.t[1] += this.state.t[0] == 0 ? 1 : 0;
+						this.state.t[1] += (state.t[0] < 0 && state.buflen > -state.t[0]) ? 1 : 0;
 						compress( b, off);
 						len -= Spec.block_bytes;
 						off += Spec.block_bytes;
